@@ -6,7 +6,9 @@ Box setup:
 
 
 WIREGUARD \
-manual: https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28
+manuals: \
+server side  - https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28
+MIkrotik side - https://write.as/5mgc9gbud1kse.md   https://youtu.be/v48LghhEGOo?si=tiqjCTm-ES87BIHD
 
 Server side: \
 **install:**
@@ -77,4 +79,45 @@ sudo wg-quick up wg0
 #autostart
 sudo systemctl enable wg-quick@wg0
 
+```
+
+**Mikrotik** side \
+```bash
+1- Create a Wireguard Interface.
+Winbox > Wireguard > Wireguard Section > Plus button > Leave the default “wireguard1” name > Enter your Client Private Key from the configuration file > Click OK.
+
+2- Create an IP Address for your “wireguard1” interface. Replace “x” with the values from your “Address” field in the config file.
+
+/ip address
+add address=10.0.2.2/30 interface=wireguard1 network=10.0.2.0
+
+3- Create a peer for your “wireguard1” interface. Replace “endpoint-address”, “endpoint-port” and “public-key” values with the values from your config file.
+
+/interface wireguard peers
+add allowed-address=0.0.0.0/0 endpoint-address=185.231.180.217 endpoint-port=38032 interface=wireguard1 persistent-keepalive=25s public-key=“Server Public Key”
+
+4- Allow your “wireguard1” interface through your mikrotik Firewall. If you are not using the default Mikrotik network IP range, replace the “src-address” value with your network range of choice.
+
+/ip firewall nat
+add action=masquerade chain=srcnat out-interface=wireguard1 src-address=192.168.88.0/24
+
+5- Route all of your mikrotik internet traffic through the Wireguard Interface. Replace “x” with the values from your “Address” field in the config file.
+
+/ip route
+add disabled=no distance=1 dst-address=0.0.0.0/1 gateway=10.0.2.1 pref-src=“” routing-table=main scope=30 suppress-hw-offload=no target-scope=10
+add disabled=no distance=1 dst-address=128.0.0.0/1 gateway=10.0.2.1 pref-src=“” routing-table=main scope=30 suppress-hw-offload=no target-scope=10
+
+6- Configure a DNS server for your router.
+
+/ip dns
+set servers=1.1.1.1
+/ip dhcp-client
+set 0 use-peer-dns=no
+
+7- Redirect Wireguard traffic through your Internet gateway. Replace the “x.x.x.x” with your Endpoint Address from your config file.
+
+/ip route
+add disabled=no dst-address=185.231.180.217/32 gateway=[/ip dhcp-client get [find interface=ether1] gateway] routing-table=main suppress-hw-offload=no
+
+8- Reboot your router.
 ```
