@@ -8,8 +8,18 @@ Box setup:
 WIREGUARD
 
 Server side:
-* install:
+*install:*
 ```bash
 sudo apt update
 sudo apt install wireguard
+```
+*Forward* packages at kernel - edit /etc/sysctl.conf - add to the end of the file:
+```bash
+net.ipv4.ip_forward = 1
+net.ipv6.conf.default.forwarding = 1
+net.ipv6.conf.all.forwarding = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.proxy_arp = 0
+net.ipv4.conf.default.send_redirects = 1
+net.ipv4.conf.all.send_redirects = 0
 ```
