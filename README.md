@@ -23,7 +23,7 @@ Server side (Linux Server running Ubuntu 20.04 LTS or newer): \
 **install:**
 ```bash
 sudo apt update
-sudo apt install wireguard
+sudo apt install wireguard iptables nano
 ```
 **Forward** packages at kernel 
 ```bash
