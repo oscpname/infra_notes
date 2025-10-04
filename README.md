@@ -8,11 +8,15 @@ Box setup:
 WIREGUARD \
 manuals: \
 server side  - https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28 \
-Mikrotik side 
+Mikrotik side \
+video1
 https://write.as/5mgc9gbud1kse.md   
 https://youtu.be/v48LghhEGOo?si=tiqjCTm-ES87BIHD
+video2
+https://youtu.be/bVKNSf1p1d0?si=bkXFlyNt9VPHsYjv
+https://github.com/ChristianLempa/videos/tree/main/wireguard-on-linux
 
-Server side: \
+Server side (Linux Server running Ubuntu 20.04 LTS or newer): \
 **install:**
 ```bash
 sudo apt update
@@ -38,8 +42,8 @@ sysctl -p
 
 **create keys**
 ```bash
-wg genkey | sudo tee server_private.key | wg pubkey | sudo tee server_public.key
-wg genkey | sudo tee client_private.key | wg pubkey | sudo tee client_public.key
+wg genkey | tee server_private.key | wg pubkey > server_public.key
+wg genkey | tee client_private.key | wg pubkey > client_public.key
 ```
 
 **edit wireguard server config** /etc/wireguard/wg0.conf
@@ -68,6 +72,7 @@ AllowedIPs = 10.66.66.2/32,fd42:42:42::2/128
 PrivateKey = <client_private.key>
 Address = 10.66.66.2/24,fd42:42:42::2/64
 DNS = 8.8.8.8,8.8.4.4
+SaveConfig = true
 [Peer]
 PublicKey = <server_public.key>
 Endpoint = 192.168.56.101:63665
