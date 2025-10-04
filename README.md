@@ -5,7 +5,7 @@ Box setup:
 * Ubuntu - free port 53: [www](https://andreyex.ru/ubuntu/kak-osvobodit-port-53-ispolzuemyj-systemd-resolved-v-ubuntu/)
 
 
-WIREGUARD
+WIREGUARD 
 manual: https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28
 
 Server side:
@@ -38,7 +38,7 @@ wg genkey | sudo tee server_private.key | wg pubkey | sudo tee server_public.key
 wg genkey | sudo tee client_private.key | wg pubkey | sudo tee client_public.key
 ```
 
-***edit wireguard server config** /etc/wireguard/wg0.conf
+**edit wireguard server config** /etc/wireguard/wg0.conf
 - Address - set IP for VPN
 - ListenPort  - set server port
 - PrivateKey  - set private server key, generated above
@@ -57,4 +57,24 @@ ACCEPT; ip6tables -t nat -D POSTROUTING -o enp0s8 -j MASQUERADE
 [Peer]
 PublicKey = <client_public.key>
 AllowedIPs = 10.66.66.2/32,fd42:42:42::2/128 
+```
+**edit client config**
+```bash
+[Interface]
+PrivateKey = <client_private.key>
+Address = 10.66.66.2/24,fd42:42:42::2/64
+DNS = 8.8.8.8,8.8.4.4
+[Peer]
+PublicKey = <server_public.key>
+Endpoint = 192.168.56.101:63665
+AllowedIPs = 0.0.0.0/0,::/0
+```
+**start the server\client**
+```bash
+# just start
+sudo wg-quick up wg0
+
+#autostart
+sudo systemctl enable wg-quick@wg0
+
 ```
