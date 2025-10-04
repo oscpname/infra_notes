@@ -9,8 +9,8 @@ WIREGUARD \
 manuals: \
 server side  
 - https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28 \
-Mikrotik side \
 
+Mikrotik side
 video1 
 - https://write.as/5mgc9gbud1kse.md 
 - https://youtu.be/v48LghhEGOo?si=tiqjCTm-ES87BIHD 
