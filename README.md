@@ -5,10 +5,10 @@ Box setup:
 * Ubuntu - free port 53: [www](https://andreyex.ru/ubuntu/kak-osvobodit-port-53-ispolzuemyj-systemd-resolved-v-ubuntu/)
 
 
-WIREGUARD 
+WIREGUARD \
 manual: https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28
 
-Server side:
+Server side: \
 **install:**
 ```bash
 sudo apt update
