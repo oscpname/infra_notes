@@ -58,7 +58,7 @@ ACCEPT; ip6tables -t nat -D POSTROUTING -o enp0s8 -j MASQUERADE
 PublicKey = <client_public.key>
 AllowedIPs = 10.66.66.2/32,fd42:42:42::2/128 
 ```
-**edit client config**
+**edit client config** and copy to /etc/wireguard/wg0.conf on client
 ```bash
 [Interface]
 PrivateKey = <client_private.key>
