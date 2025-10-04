@@ -9,12 +9,12 @@ WIREGUARD \
 manuals: \
 server side  - https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28 \
 Mikrotik side \
-video1
-https://write.as/5mgc9gbud1kse.md   
-https://youtu.be/v48LghhEGOo?si=tiqjCTm-ES87BIHD
-video2
-https://youtu.be/bVKNSf1p1d0?si=bkXFlyNt9VPHsYjv
-https://github.com/ChristianLempa/videos/tree/main/wireguard-on-linux
+video1 
+- https://write.as/5mgc9gbud1kse.md 
+- https://youtu.be/v48LghhEGOo?si=tiqjCTm-ES87BIHD 
+video2 
+- https://youtu.be/bVKNSf1p1d0?si=bkXFlyNt9VPHsYjv 
+- https://github.com/ChristianLempa/videos/tree/main/wireguard-on-linux 
 
 Server side (Linux Server running Ubuntu 20.04 LTS or newer): \
 **install:**
