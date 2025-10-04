@@ -6,6 +6,7 @@ Box setup:
 
 
 WIREGUARD
+manual: https://telegra.ph/Prostaya-nastrojka-WireGuard-Linux-04-28
 
 Server side:
 **install:**
@@ -29,4 +30,31 @@ net.ipv4.conf.all.send_redirects = 0
 
 #update setting
 sysctl -p
+```
+
+**create keys**
+```bash
+wg genkey | sudo tee server_private.key | wg pubkey | sudo tee server_public.key
+wg genkey | sudo tee client_private.key | wg pubkey | sudo tee client_public.key
+```
+
+***edit wireguard server config** /etc/wireguard/wg0.conf
+- Address - set IP for VPN
+- ListenPort  - set server port
+- PrivateKey  - set private server key, generated above
+- PostUp, PostDown - edit network interface instead of enp0s8
+```bash
+[Interface]
+Address = 10.66.66.1/24,fd42:42:42::1/64
+ListenPort = 63665
+PrivateKey = <server_private.key>
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A
+POSTROUTING -o enp0s8 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j
+ACCEPT; ip6tables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D
+POSTROUTING -o enp0s8 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j
+ACCEPT; ip6tables -t nat -D POSTROUTING -o enp0s8 -j MASQUERADE
+[Peer]
+PublicKey = <client_public.key>
+AllowedIPs = 10.66.66.2/32,fd42:42:42::2/128 
 ```
