@@ -91,7 +91,7 @@ sudo systemctl enable wg-quick@wg0
 
 ```
 
-**Mikrotik** side \
+**Mikrotik** side
 ```bash
 1- Create a Wireguard Interface.
 Winbox > Wireguard > Wireguard Section > Plus button > Leave the default “wireguard1” name > Enter your Client Private Key from the configuration file > Click OK.
