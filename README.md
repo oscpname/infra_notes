@@ -59,12 +59,8 @@ wg genkey | tee client_private.key | wg pubkey > client_public.key
 Address = 10.66.66.1/24,fd42:42:42::1/64
 ListenPort = 63665
 PrivateKey = <server_private.key>
-PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A
-POSTROUTING -o enp0s8 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j
-ACCEPT; ip6tables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
-PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D
-POSTROUTING -o enp0s8 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j
-ACCEPT; ip6tables -t nat -D POSTROUTING -o enp0s8 -j MASQUERADE
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o enp0s8 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o enp0s8 -j MASQUERADE
 [Peer]
 PublicKey = <client_public.key>
 AllowedIPs = 10.66.66.2/32,fd42:42:42::2/128 
